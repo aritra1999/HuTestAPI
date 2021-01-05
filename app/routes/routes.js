@@ -1,10 +1,17 @@
 var ObjectID = require('mongodb').ObjectID
 
 module.exports = function(app, db){
-    // app.get('/api/get/all', (req, res) => { 
-    //     const results = db.collection('users').find();
-    //     res.send(results);
-    // })
+    app.get('/api/get/all', (req, res) => { 
+        const results = db.collection('users').find((err, result) => {
+            if(err){
+                res.send({'error': 'An error has occured'});
+            }else{
+                result.forEach(console.log);
+                res.send({'users': JSON.parse(result)});
+            }
+        });
+        // res.send({'result': results});
+    })
 
     app.get('/api/get/user/:id', (req, res) => {
 

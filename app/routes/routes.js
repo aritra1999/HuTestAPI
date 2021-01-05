@@ -1,16 +1,15 @@
+'use strict';
 var ObjectID = require('mongodb').ObjectID
 
 module.exports = function(app, db){
     app.get('/api/get/all', (req, res) => { 
-        const results = db.collection('users').find((err, result) => {
+        db.collection('users').find().toArray(function(err, users){
             if(err){
                 res.send({'error': 'An error has occured'});
-            }else{
-                result.forEach(console.log);
-                res.send({'users': JSON.parse(result)});
+            }else{ 
+                res.send({users});
             }
         });
-        // res.send({'result': results});
     })
 
     app.get('/api/get/user/:id', (req, res) => {

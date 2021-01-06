@@ -25,3 +25,8 @@
 | Method | Endpoint | Description | Example |
 |--------|----------|-------------|---------|
 | GET | `api/get/orgs` | Returns list of all organizations.| https://hutestapi.herokuapp.com/api/get/orgs |  
+| GET | `api/get/org/:id` | Returns organization with ID.  | https://hutestapi.herokuapp.com/api/get/org/5ff52de529d727ae2fb7e424 |  
+| POST | `api/post/org` | Create new organization. | https://hutestapi.herokuapp.com/api/post/org |  
+| PUT | `api/update/org/:id` | Update organization with ID. | https://hutestapi.herokuapp.com/api/update/org/5ff52de529d727ae2fb7e424 |  
+| DELETE | `api/delete/org/:id` | Delete organization with ID. | https://hutestapi.herokuapp.com/api/delete/org/5ff52de529d727ae2fb7e424 | 
+  

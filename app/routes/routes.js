@@ -2,12 +2,12 @@
 var ObjectID = require('mongodb').ObjectID
 
 module.exports = function(app, db){
-    app.get('/api/get/all', (req, res) => { 
+    app.get('/api/get/users', (req, res) => { 
         db.collection('users').find().toArray(function(err, users){
             if(err){
                 res.send({'error': 'An error has occured'});
             }else{ 
-                res.send({users});
+                res.send(users);
             }
         });
     })
@@ -25,6 +25,17 @@ module.exports = function(app, db){
             }
         })
     })
+
+    app.get('/api/get/orgs', (req, res) => {
+        db.collection('organizations').find().toArray(function(err, orgs){
+            if(err) {
+                res.send({'error': 'An error has occured'});
+            }else{
+                res.send(orgs);
+            }
+        });
+    })
+
 
     app.put('/api/update/user/:id', (req, res) => {
 

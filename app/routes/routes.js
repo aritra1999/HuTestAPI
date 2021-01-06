@@ -46,7 +46,7 @@ module.exports = function(app, db){
         });
     })
 
-    // Gey user with ID.
+    // Get user with ID.
     app.get('/api/get/user/:id', (req, res) => {
 
         const id = req.params.id;
@@ -61,7 +61,7 @@ module.exports = function(app, db){
         })
     })
 
-    // Uspdate user with ID. 
+    // Update user with ID. 
     app.put('/api/update/user/:id', (req, res) => {
         const id = req.params.id;
         const user = {'_id': new ObjectID(id)};
@@ -113,11 +113,27 @@ module.exports = function(app, db){
     })
 
     // Get organization with ID 
+    app.get('/api/get/org/:id', (req, res) => {
+
+        const id = req.params.id;
+        const org = {'_id': new ObjectID(id)};
+
+        db.collection('organizations').findOne(org, (err, item) => {
+            if(err){
+                res.send({'error': 'An error has occured'});
+            }else{
+                res.send(item);
+            }
+        })
+    })
 
     // Create organization. 
 
+
     // Update organization.
 
+
     // Delete organization.
+
     
 }

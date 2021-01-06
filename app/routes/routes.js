@@ -74,7 +74,8 @@ module.exports = function(app, db){
         const user = {'_id': new ObjectID(id)};
         const updatedUser = {
             email: req.body.email,
-            name: req.body.name
+            name: req.body.name,
+            org: req.body.email.split("@")[1]
         };
 
         db.collection('users').updateOne(user, updatedUser, (err, item) => {
@@ -103,7 +104,8 @@ module.exports = function(app, db){
     app.post('/api/post/user', (req, res) => {
         const instance = {
             email: req.body.email,
-            name: req.body.name
+            name: req.body.name,
+            org: req.body.email.split("@")[1]
         };
         db.collection('users').insertOne(instance, (err, result) => {
             if(err){

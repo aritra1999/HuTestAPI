@@ -36,6 +36,33 @@ module.exports = function(app, db){
         });
     })
 
+    app.get('/api/validate', (req, res) => {
+        const queryEmail = req.query.email;
+        const queryOrg = {"name": queryEmail.split("@")[1]};
+        db.collection('organizations').findOne(queryOrg, (err, org) => {
+            if(err)res.send({'error': 'An error has occured'});
+            else if(org === null)res.send({'error': 'Organization not registered!'});
+            else{ 
+                db.collection('users').findOne({'email': queryEmail}, (err, user) => {
+                    if(err)res.send({'error': 'An error has occured'});
+                    else if(user)res.send({'error': 'User already exists'});
+                    else{
+                        let validate;
+                        if(org.limit >= org.active + 1)validate = true; 
+                        else validate = false;
+        
+                        res.send({
+                            'validate': validate,
+                            'query': queryEmail,
+                            'org': org,
+                        });
+                    }
+                })
+            }
+        });
+        
+        
+    })
 
     app.put('/api/update/user/:id', (req, res) => {
 

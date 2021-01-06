@@ -48,9 +48,13 @@ module.exports = function(app, db){
                     else if(user)res.send({'error': 'User already exists'});
                     else{
                         let validate;
-                        if(org.limit >= org.active + 1)validate = true; 
+                        if(org.limit >= org.active + 1){
+                            validate = true; 
+                            org.active += 1;
+                            db.collection('organizations').save(org);
+                        }
                         else validate = false;
-        
+                        
                         res.send({
                             'validate': validate,
                             'query': queryEmail,

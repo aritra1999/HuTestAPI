@@ -100,7 +100,7 @@ module.exports = function(app, db){
         })
     })
 
-    app.post('/api/post', (req, res) => {
+    app.post('/api/post/user', (req, res) => {
         const instance = {
             email: req.body.email,
             name: req.body.name

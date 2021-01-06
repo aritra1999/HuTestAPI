@@ -6,7 +6,7 @@
 ##  Validation
 | Method | Endpoint | Description | Example |
 |--------|----------|-------------|---------|
-| GET | `/api/validate/?email=<email>` | Validates new users | https://hutestapi.herokuapp.com/api/api/validate?email=test00@softwaysolutions.com |  
+| GET | `/api/validate/?email=<email>` | Validates new users | https://hutestapi.herokuapp.com/api/validate?email=test00@softwaysolutions.com |  
 
   
 

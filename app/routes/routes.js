@@ -61,6 +61,19 @@ module.exports = function(app, db){
         })
     })
 
+    // Add user.
+    app.post('/api/post/user', (req, res) => {
+        const instance = {
+            email: req.body.email,
+            name: req.body.name,
+            org: req.body.email.split("@")[1]
+        };
+        db.collection('users').insertOne(instance, (err, result) => {
+            if(err) res.send({'error': 'An error has occured'});
+            else res.send(result.ops[0]);
+        })
+    })
+
     // Update user with ID. 
     app.put('/api/update/user/:id', (req, res) => {
         const id = req.params.id;
@@ -84,19 +97,6 @@ module.exports = function(app, db){
         db.collection('users').deleteOne(user, (err, item) => {
             if(err) res.send({'error': 'An error has occured'});
             else res.send('User' + id + ' deleted');
-        })
-    })
-
-    // Add user.
-    app.post('/api/post/user', (req, res) => {
-        const instance = {
-            email: req.body.email,
-            name: req.body.name,
-            org: req.body.email.split("@")[1]
-        };
-        db.collection('users').insertOne(instance, (err, result) => {
-            if(err) res.send({'error': 'An error has occured'});
-            else res.send(result.ops[0]);
         })
     })
 
@@ -128,12 +128,41 @@ module.exports = function(app, db){
     })
 
     // Create organization. 
-
+    app.post('/api/post/org', (req, res) => {
+        const instance = {
+            name: req.body.name,
+            limit: req.body.limit,
+            active: 0
+        };
+        db.collection('organizations').insertOne(instance, (err, result) => {
+            if(err) res.send({'error': 'An error has occured'});
+            else res.send(result.ops[0]);
+        })
+    })
 
     // Update organization.
-
+    app.put('/api/update/org/:id', (req, res) => {
+        const id = req.params.id;
+        const org = {'_id': new ObjectID(id)};
+        const updatedOrg = {
+            name: req.body.name,
+            limit: req.body.limit
+        };
+        db.collection('organizations').updateOne(org, updatedOrg, (err, item) => {
+            if(err) res.send({'error': 'An error has occured'});
+            else res.send(item);
+        })
+    })
 
     // Delete organization.
+    app.delete('/api/delete/org/:id', (req, res) => {
+        const id = req.params.id;
+        const org = {'_id': new ObjectID(id)};
 
-    
+        db.collection('organizations').deleteOne(org, (err, item) => {
+            if(err) res.send({'error': 'An error has occured'});
+            else res.send('Organization' + id + ' deleted');
+        })
+    })
+
 }
